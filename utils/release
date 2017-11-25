@@ -1,0 +1,8 @@
+#!/bin/bash -u
+
+docker run -it \
+       -e TWINE_USERNAME=${TWINE_USERNAME} \
+       -e TWINE_PASSWORD=${TWINE_PASSWORD} \
+       -e TWINE_REPOSITORY_URL=${TWINE_REPOSITORY_URL} \
+       -e EXPECTLY_GITHUB_TOKEN=${EXPECTLY_GITHUB_TOKEN} \
+       -v `pwd`:/package hsenftgrupp/expectly-build release "$@"

@@ -1,0 +1,20 @@
+#!/bin/bash -u
+
+case $1 in
+
+    "prepare" )
+    shift
+    bumpversion patch && \
+    git push --tags https://${EXPECTLY_GITHUB_TOKEN}@github.com/huntcsg/expectly.git
+    exit $?
+    ;;
+
+    * )
+    pip install twine && \
+    rm -rf dist && \
+    python setup.py sdist bdist_wheel && \
+    twine upload dist/*
+    ;;
+
+esac
+
