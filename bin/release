@@ -26,7 +26,7 @@ case $1 in
     git pull
     git fetch origin develop:develop
     git checkout develop
-    giy pull
+    git pull
     git rebase v0
     git push https://${EXPECTLY_GITHUB_TOKEN}@github.com/huntcsg/expectly.git
 
