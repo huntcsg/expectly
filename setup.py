@@ -39,7 +39,7 @@ dev_requires = testing_requires + docs_require + [
 
 setup(
     name='expectly',
-    version='0.1.7',
+    version='0.1.8',
     description='An HTTP API centric BDD style test framework',
     long_description="\n".join([README, CHANGES, AUTHORS]),
     author='Hunter Senft-Grupp',
