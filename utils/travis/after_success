@@ -16,7 +16,8 @@ if [ "${TRAVIS_TAG}" = "${TRAVIS_BRANCH}" ]; then
 
     if [[ $TRAVIS_BRANCH =~ ^v[0-9]\.[0-9]\.[0-9]$ ]]; then
         echo "On a tag that looks like a version. Releasing..."
-        ./utils/release pypi
+        ./utils/release pypi && \
+        ./utils/release update-develop
         exit $?
     else
         echo "Not on a tag that looks like version. Doing nothing."
