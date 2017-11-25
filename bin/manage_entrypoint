@@ -1,0 +1,76 @@
+#!/bin/bash
+
+function print_help () {
+    echo "usage: manage CMD [ options ]"
+    echo ""
+    echo "Includes the source code and all the necessary tools to build and upload expectly to pypi"
+    echo ""
+    echo "      test        Runs the test suite"
+    echo "      docs        Builds the documentation"
+    echo "      build       Builds the python package"
+    echo "      release     Releases the python package"
+    echo "      help        prints this help message"
+    echo "      bump        Uses bump version to do the appropriate thing"
+    echo "      clean       Runs linter and what not"
+}
+
+case $1 in
+
+    "lint" )
+    shift
+    isort -rc src/expectly && \
+    flake8 src/expectly
+    exit $?
+    ;;
+
+    "clean" )
+    shift
+    isort -rc -y src/expectly && \
+    flake8 src/expectly
+    exit $?
+    ;;
+
+    "test" )
+    shift
+    pip install .[testing]
+    py.test --html=cover/report.html --self-contained-html --cov expectly "$@"
+    coverage html -d cover
+    exit $?
+    ;;
+
+    "docs" )
+    shift
+    pip install .[docs]
+    sphinx-build -c docs/source -W -a -E docs/source docs/build "$@"
+    exit $?;
+    ;;
+
+    "bump" )
+    shift
+    bumpversion "$@"
+    ;;
+
+    "build" )
+    shift
+    python setup.py sdist bdist_wheel
+    exit $?;
+    ;;
+
+    "release" )
+    shift
+    ./bin/release "$@"
+    exit $?
+    ;;
+
+    "help" )
+    shift
+    print_help
+    exit
+    ;;
+
+    * )
+    print_help
+    exit
+    ;;
+
+esac

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+docker build -t hsenftgrupp/expectly-build .
+
+docker run -v `pwd`:/package \
+       --entrypoint bash \
+       hsenftgrupp/expectly-build \
+       -c "pip install --upgrade .[dev] > /dev/null && pip freeze" \
+       | grep -v expectly > dev_requirements.txt
