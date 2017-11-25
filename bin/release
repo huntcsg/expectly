@@ -8,8 +8,9 @@ case $1 in
     git checkout v0
     git pull
 
-    bumpversion patch && \
+    bumpversion patch
     git push --tags https://${EXPECTLY_GITHUB_TOKEN}@github.com/huntcsg/expectly.git
+    git push https://${EXPECTLY_GITHUB_TOKEN}@github.com/huntcsg/expectly.git
 
     exit $?
     ;;
