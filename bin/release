@@ -4,8 +4,13 @@ case $1 in
 
     "prepare" )
     shift
+    git fetch origin v0:v0
+    git checkout v0
+    git pull
+
     bumpversion patch && \
     git push --tags https://${EXPECTLY_GITHUB_TOKEN}@github.com/huntcsg/expectly.git
+
     exit $?
     ;;
 
@@ -14,6 +19,16 @@ case $1 in
     rm -rf dist && \
     python setup.py sdist bdist_wheel && \
     twine upload dist/*
+
+    git fetch origin v0:v0
+    git checkout v0
+    git pull
+    git fetch origin develop:develop
+    git checkout develop
+    giy pull
+    git rebase v0
+    git push https://${EXPECTLY_GITHUB_TOKEN}@github.com/huntcsg/expectly.git
+
     ;;
 
 esac

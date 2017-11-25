@@ -1,0 +1,26 @@
+#!/bin/bash -u
+
+if [[ $TRAVIS_BRANCH =~ ^v[0-9]*$ ]]; then
+    echo "On a versioned branch. Preparing a relase"
+    ./utils/release prepare
+    exit $?
+else
+    echo "Not a version branch. Doing Nothing."
+    exit 0
+fi
+
+if [ "${TRAVIS_TAG}" = "${TRAVIS_BRANCH}" ]; then
+
+    if [[ $TRAVIS_BRANCH =~ ^v[0-9]\.[0-9]\.[0-9]$ ]]; then
+        echo "On a tag that looks like a version. Releasing..."
+        ./utils/release pypi
+        exit $?
+    else
+        echo "Not on a tag that looks like version. Doing nothing."
+        exit 0
+    fi
+
+else
+    echo "Not on a tag. Doing nothing."
+    exit 0
+fi

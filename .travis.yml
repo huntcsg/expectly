@@ -11,3 +11,6 @@ script:
   - ./utils/manage test
   - ./utils/manage docs
   - ./utils/manage build
+
+after_success:
+  - ./utils/travis/after_success
