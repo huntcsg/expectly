@@ -1,12 +1,15 @@
 #!/bin/bash -u
 
 if [[ $TRAVIS_BRANCH =~ ^v[0-9]*$ ]]; then
-    echo "On a versioned branch. Preparing a relase"
-    ./utils/release prepare
-    exit $?
-else
-    echo "Not a version branch. Doing Nothing."
-    exit 0
+    last_commit=`git log --oneline -n 1`
+
+    if [[ $last_commit =~ "Cut Release" ]]; then
+        echo "Don't do anything else with this commit"
+    else
+        echo "On a versioned branch and we didn't just cut a release. Preparing a relase..."
+        ./utils/release prepare
+        exit $?
+    fi
 fi
 
 if [ "${TRAVIS_TAG}" = "${TRAVIS_BRANCH}" ]; then
@@ -21,6 +24,6 @@ if [ "${TRAVIS_TAG}" = "${TRAVIS_BRANCH}" ]; then
     fi
 
 else
-    echo "Not on a tag. Doing nothing."
+    echo "Not a version branch or tag. Doing nothing."
     exit 0
 fi
