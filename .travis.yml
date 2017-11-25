@@ -1,0 +1,13 @@
+sudo: required
+language: generic
+services:
+  - docker
+
+before_install:
+  - ./utils/docker-build
+
+script:
+  - ./utils/manage lint
+  - ./utils/manage test
+  - ./utils/manage docs
+  - ./utils/manage build

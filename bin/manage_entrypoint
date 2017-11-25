@@ -16,6 +16,13 @@ function print_help () {
 
 case $1 in
 
+    "lint" )
+    shift
+    isort -rc src/expectly && \
+    flake8 src/expectly
+    exit $?
+    ;;
+
     "clean" )
     shift
     isort -rc -y src/expectly && \
@@ -34,8 +41,8 @@ case $1 in
     "docs" )
     shift
     pip install .[docs]
-    sphinx-build -c docs/source -a -E docs/source docs/build
-    exit;
+    sphinx-build -c docs/source -W -a -E docs/source docs/build "$@"
+    exit $?;
     ;;
 
     "bump" )
@@ -46,7 +53,7 @@ case $1 in
     "build" )
     shift
     python setup.py sdist bdist_wheel
-    exit;
+    exit $?;
     ;;
 
     "upload" )
