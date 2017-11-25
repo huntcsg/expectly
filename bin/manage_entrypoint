@@ -8,7 +8,7 @@ function print_help () {
     echo "      test        Runs the test suite"
     echo "      docs        Builds the documentation"
     echo "      build       Builds the python package"
-    echo "      upload      Uploads the python package to pypi"
+    echo "      release     Releases the python package"
     echo "      help        prints this help message"
     echo "      bump        Uses bump version to do the appropriate thing"
     echo "      clean       Runs linter and what not"
@@ -56,10 +56,10 @@ case $1 in
     exit $?;
     ;;
 
-    "upload" )
+    "release" )
     shift
-    echo "Not configured yet"
-    exit 0
+    ./bin/release "$@"
+    exit $?
     ;;
 
     "help" )
