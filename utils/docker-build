@@ -1,0 +1,3 @@
+#!/usr/bin/env bash -u
+
+docker build -t hsenftgrupp/expectly-build .

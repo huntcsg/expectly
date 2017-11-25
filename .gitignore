@@ -1,0 +1,7 @@
+__pycache__
+.cache
+.idea
+cover
+*.egg-info
+.coverage
+docs/build

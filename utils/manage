@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+docker run -it -v ~/.secrets/expectly:/secrets -v `pwd`:/package hsenftgrupp/expectly-build "$@"

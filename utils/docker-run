@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+docker run -it -v `pwd`:/package --entrypoint bash hsenftgrupp/expectly-build
