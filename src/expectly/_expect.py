@@ -62,7 +62,7 @@ class expect:
         """The value that is being tested"""
 
         self.predicate = []
-        """A :class:`list` of :class:`str`s that will be joined to make a human readable assertion"""
+        """A :class:`list` of :class:`str` that will be joined to make a human readable assertion"""
 
         self.test_called = False
         """A flag indicating whether any tests have been made"""
@@ -141,8 +141,8 @@ class expect:
         :return: a :class:`str`
         """
         if not self.predicate:
-            return f'Expected {self.response_under_test.__class__.__name__} to exist.'
-        return f'Expected {self.response_under_test.__class__.__name__} ' + ' '.join(
+            return 'Expected {} to exist.'.format(self.response_under_test.__class__.__name__)
+        return 'Expected {} '.format(self.response_under_test.__class__.__name__) + ' '.join(
             [part for part in self.predicate if part]) + '.'
 
     #
